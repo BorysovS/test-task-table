@@ -1,15 +1,24 @@
 import axios from "axios";
-// import { createAsyncThunk } from "@reduxjs/toolkit";
-// import { toast } from "react-toastify";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "https://6536f54fbb226bb85dd2c1e7.mockapi.io/api/";
+axios.defaults.baseURL = "https://technical-task-api.icapgroupgmbh.com/api";
 
-// const setAuthHeader = (token: string) => {
-//   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-// };
+export const logIn = createAsyncThunk(
+  "auth/logIn",
+  async (credential: { username: string; password: string }, thunkAPI) => {
+    try {
+      // Спробуємо виконати запит на логін
+      const resp = await axios.post("/login/", credential);
+      // Якщо успішно, повернемо дані користувача
+      return resp.data;
+    } catch (error: any) {
+      // Якщо сталася помилка, використаємо rejectWithValue для обробки помилки
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
-// const clearAuthHeader = () => {
-//   axios.defaults.headers.common.Authorization = "";
-// };
-
-//
+export const logOut = createAsyncThunk("/login", async (_, _thunkAPI) => {
+  // Просто повертаємо null як дані користувача та isLoggedIn: false
+  return null;
+});

@@ -1,20 +1,25 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+interface FetchTableParams {
+  offset: number;
+  limit: number;
+}
+
 // axios.defaults.baseURL = 'https://64315148d4518cfb0e5ec9ad.mockapi.io/api/v1';
 // axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
-axios.defaults.baseURL = "https://6536f54fbb226bb85dd2c1e7.mockapi.io/api/";
+axios.defaults.baseURL = "https://technical-task-api.icapgroupgmbh.com/api";
 
 export const fetchTable = createAsyncThunk(
   "table/fetchAll",
-  async (_, thunkAPI) => {
+  async (params: FetchTableParams, thunkAPI) => {
     try {
-      const resp = await axios.get("table");
-      console.log(resp.data);
-      return resp.data;
+      const { offset, limit } = params;
+      const resp = await axios.get(`/table?offset=${offset}&limit=${limit}`);
+      return resp.data.results;
     } catch (error: any) {
-      thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
