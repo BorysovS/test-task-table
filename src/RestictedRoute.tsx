@@ -9,8 +9,6 @@ interface PrivateRouteProps {
 
 export const RestrictedRoute: React.FC<PrivateRouteProps> = ({ component: Component, redirectTo = '/' }) => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  // console.log(isLoggedIn)
 
-  // const shouldRedirect = !isLoggedIn;
   return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;
 };

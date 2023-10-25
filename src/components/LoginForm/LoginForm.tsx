@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { logIn } from '../../redux/Authorization/operation';
 import { useAppDispatch } from '../../hooks/hook';
+import { Button, ErrorMessage, Form, FormContainer, Input } from './LoginForm.styled';
 
 
 interface LoginFormValues {
@@ -34,27 +35,28 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer>
+      <h2>Login</h2>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <input
+          <Input
             type="text"
             placeholder="Enter your name"
             {...register('username', { required: true })}
           />
-          {errors.username && <span>Email is required</span>}
+          {errors.username && <ErrorMessage>Email is required</ErrorMessage>}
         </div>
         <div>
-          <input
+          <Input
             placeholder="Confirm a password"
             type="text"
             {...register('password', { required: true })}
           />
 
-          {errors.password && <span>Password is required</span>}
+          {errors.password && <ErrorMessage>Password is required</ErrorMessage>}
         </div>
-        <button type="submit">Log In Now</button>
-      </form>
-    </div>
+        <Button type="submit">Log In Now</Button>
+      </Form>
+    </FormContainer>
   );
 };

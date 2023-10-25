@@ -8,8 +8,8 @@ export const Table = () => {
     const dispatch = useAppDispatch();
     const table = useAppSelector(selectTable);
 
-    const limit = 10; // Кількість елементів на сторінці
-    const [offset, setOffset] = useState(0); // Поточний offset
+    const limit = 10; 
+    const [offset, setOffset] = useState(0); 
 
     useEffect(() => {
       dispatch(fetchTable({ offset, limit }));

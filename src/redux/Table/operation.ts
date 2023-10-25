@@ -6,8 +6,10 @@ interface FetchTableParams {
   limit: number;
 }
 
-// axios.defaults.baseURL = 'https://64315148d4518cfb0e5ec9ad.mockapi.io/api/v1';
-// axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+type UpdateDataParams = {
+  id: number;
+  TableData: object;
+};
 
 axios.defaults.baseURL = "https://technical-task-api.icapgroupgmbh.com/api";
 
@@ -24,26 +26,26 @@ export const fetchTable = createAsyncThunk(
   }
 );
 
-// export const addContact = createAsyncThunk(
-//   "contacts/addContact",
-//   async (contact, thunkAPI) => {
-//     try {
-//       const resp = await axios.post("/contacts", contact);
-//       return resp.data;
-//     } catch (error: any) {
-//       thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const updateData = createAsyncThunk(
+  "table/updateData",
+  async ({ id, TableData }: UpdateDataParams, { rejectWithValue }) => {
+    try {
+      const resp = await axios.patch(`/table/${id}/`, TableData);
+      return resp;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
-// export const deleteContact = createAsyncThunk(
-//   "contacts/deleteContact",
-//   async (id, thunkAPI) => {
-//     try {
-//       const resp = await axios.delete(`/contacts/${id}`, id);
-//       return resp.data;
-//     } catch (error: any) {
-//       thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const deleteTableData = createAsyncThunk(
+  "table/deleteTableData",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const resp = await axios.delete(`/table/${id}/`);
+      return resp;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

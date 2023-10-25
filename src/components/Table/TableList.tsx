@@ -1,7 +1,8 @@
+import { Table, TableHead } from "./Table.styled";
 import { TableItem } from "./TableItem";
 
 interface TableListProps {
-  items: any[]; // Замість 'any' визначте тип масиву items
+  items: any[]; 
 }
 
 interface Item {
@@ -15,13 +16,13 @@ interface Item {
 export const TableList: React.FC<TableListProps> = ({ items }) => {
   console.log(items);
   return (
-    <table>
+    <Table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>B-day date</th>
-          <th>Phone number</th>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>B-day date</TableHead>
+          <TableHead>Phone number</TableHead>
         </tr>
           </thead>
           <tbody>
@@ -30,7 +31,7 @@ export const TableList: React.FC<TableListProps> = ({ items }) => {
           
       })}
               </tbody>
-    </table>
+    </Table>
   );
 };
 
